@@ -43,6 +43,7 @@ void backtrack(vector<int> &t){
     }
     
     ans2 += (abs(di - lasti2) + abs(dj - lastj2));
+    
     finalAns = min(finalAns, min(ans, ans2));
     
     for (int i = 0; i < n; i++){
@@ -71,6 +72,7 @@ void solve(){
 
 int main(){
     fast;
+    
     ll t;
     cin >> t;
     
