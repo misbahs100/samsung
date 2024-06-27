@@ -23,14 +23,18 @@ time is not considered and during that 10min at 10th min he will be in next divi
 3 0.700000
 */
 
-
+// approach: dfs + backtracking
 
 
 
 #include<iostream>
+#define ll long long;
+#define fast	\
+	ios_base::sync_with_stdio(0);	\
+	cin.tie(0);
 using namespace std;
 
-void docProb(double **graph, int nodes, int time, int curNode, double p, double *answer){
+void docProb(double **graph, int n, int time, int curNode, double p, double *answer){
     // Base case: if time is up, accumulate the probability in the answer array
     if(time <= 0){
         answer[curNode] += p;
@@ -38,12 +42,12 @@ void docProb(double **graph, int nodes, int time, int curNode, double p, double 
     }
 
     // Recursive case: for each possible transition, update the probability
-    for(int i = 1; i <= nodes; i++){
+    for(int i = 1; i <= n; i++){
         if(graph[curNode][i] != 0){
             // Update probability for the next transition
             p *= graph[curNode][i];
             // Recursive call with reduced time
-            docProb(graph, nodes, time - 10, i, p, answer);
+            docProb(graph, n, time - 10, i, p, answer);
             // Backtrack the probability
             p /= graph[curNode][i];    
         }
@@ -51,17 +55,19 @@ void docProb(double **graph, int nodes, int time, int curNode, double p, double 
 }
 
 int main(){
+    fast;
+    
     int t;
     cin >> t;  // Number of test cases
     while(t--){
-        int nodes, edges, time;
-        cin >> nodes >> edges >> time;
+        int n, e, time;	// num of nodes, edges, total time
+        cin >> n >> e >> time;
         
-        // Initialize graph with zero probabilities
-        double **arr = new double*[nodes + 1]; 
-        for(int i = 1; i <= nodes; i++){
-            arr[i] = new double[nodes + 1];
-            for(int j = 1; j <= nodes; j++){
+        // Initialize 2D graph with zero probabilities
+        double **arr = new double*[n + 1]; 
+        for(int i = 1; i <= n; i++){
+            arr[i] = new double[n + 1];
+            for(int j = 1; j <= n; j++){
                 arr[i][j] = 0;
             }
         }
@@ -69,29 +75,31 @@ int main(){
         // Read edges and their probabilities
         int from, to;
         double prob;
-        for(int i = 0; i < edges; i++){
+        for(int i = 0; i < e; i++){
             cin >> from >> to >> prob;
             arr[from][to] = prob;
         }
 
         // Initialize answer array
-        double answer[nodes + 1] = {0.0};
+        double answer[n + 1] = {0.0};
         // Start the recursive probability calculation from node 1
-        docProb(arr, nodes, time, 1, 1.0, answer);
+        docProb(arr, n, time, 1, 1.0, answer);
+        // params: graph, num_of_nodes, time, currNode, initial_probability, answer array
         
         // Find the division with the highest probability
         double finalProb = 0.0;
-        int finalDivison = 0;
+        int node = 0;
         
-        for(int i = 1; i <= nodes; i++){
+        for(int i = 1; i <= n; i++){
             if(answer[i] > finalProb){
                 finalProb = answer[i];
-                finalDivison = i;
+                node = i;
             }
         }
         // Output the division and its probability
-        cout << finalDivison << " " << finalProb << "\n";
+        cout << node << " " << finalProb << "\n";
     }
+    
     return 0;
 }
 

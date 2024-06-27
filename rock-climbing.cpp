@@ -15,7 +15,7 @@ bool isDestination;
 bool vis[15][15];
 
 void dfs(int row, int col, int l){
-  // base cases
+  // base cases: check boundary and visited
   if(row < 0 || row >= n || col < 0 || col >= m) return;
   if(vis[row][col]) return;
   
@@ -30,15 +30,17 @@ void dfs(int row, int col, int l){
   if(col + 1 < m && grid[row][col+1] != 0 && !vis[row][col+1])
     dfs(row, col+1, l);
   
-  // check if we can climb to the bottom-left
+  // check if we can climb to the left
   if(col - 1 >= 0 && grid[row][col-1] != 0 && !vis[row][col-1])
     dfs(row, col-1, l);
   
-  // check if we can climb up and bottom: i.e., check from 1 to l
+  // check if we can climb up and down: i.e., check from 1 to l
   for(int i=1; i<=l; ++i){
+    // check for down
     if(row + i < n && grid[row+i][col] != 0 && !vis[row+i][col])
       dfs(row+i, col, l);
     
+    // check for up
     if(row - i >= 0 && grid[row-i][col] != 0 && !vis[row-i][col])
       dfs(row-i, col, l);
   }
@@ -56,7 +58,7 @@ int main(){
     }
   }
   
-  // we have to check for every row whether that row contains number 3 (destination)
+  // we have to check for every row(level) whether that row(level) contains number 3 (destination)
   for(int l=0; l<n; ++l){
     isDestination = false;
     memset(vis, false, sizeof(vis));

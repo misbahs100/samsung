@@ -19,7 +19,7 @@ void flip(int col, vector<vector<int>> &v){
 }
 
 void back(int col, int k, vector<vector<int>> v){
-    // base case 1
+    // base case 1: if k is 0, check how many rows contain all 1s.
     if (k == 0){
         int res = 0;
         for (int i = 0; i < n; i++){
