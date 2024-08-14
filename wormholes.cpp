@@ -58,7 +58,7 @@ void backtrack(vector<int> &t){
 }
 
 void solve(){
-    cin >> n;
+    cin >> n;	// num of wormholes
     cin >> si >> sj >> di >> dj;
     for (int i = 0; i < n; i++){
         cin >> v[i].si >> v[i].sj >> v[i].di >> v[i].dj >> v[i].c;

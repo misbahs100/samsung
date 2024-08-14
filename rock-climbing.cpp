@@ -51,7 +51,7 @@ void dfs(int row, int col, int l){
 int main(){
   fast;
   
-  cin >> n >> m;
+  cin >> n >> m;	// num_row, num_col
   for(int i=0; i<n; ++i){
     for(int j=0; j<m; ++j){
       cin >> grid[i][j];

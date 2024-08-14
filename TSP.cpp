@@ -7,6 +7,7 @@
 #include <algorithm>
 using namespace std;
 
+// 1<<n means 2^n
 // bit masking:
 // setting a bit: n | (1 << i)
 // clear a bit: n & ~(1 << i)

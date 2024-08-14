@@ -1,6 +1,7 @@
 // ques: https://www.hackerrank.com/contests/target-samsung-13-nov19/challenges/sum-of-nodes-in-kth-level/problem
 
 // idea: make tree from string, then apply bfs(queue) to find the sum
+// kth level should be started from 0, not 1. (according to this accepted-solution of hackerrank)
 
 #include <bits/stdc++.h>
 #define ll long long
@@ -69,7 +70,7 @@ int findSum(Node *root, int k){
   queue<pair<Node *, int> > q;
   // here, pair: {Node *, level_no}
   
-  q.push({root, 0});
+  q.push({root, 0});	// root starts at level 0. if question asks from level 1, just update the 0 to 1.
   while(!q.empty()){
     pair<Node *, int> p = q.front();
     q.pop();
@@ -84,8 +85,8 @@ int findSum(Node *root, int k){
 int main(){
   fast;
   
-  int k;
-  string s;
+  int k;	// k-th level
+  string s;	// string of tree
   cin >> k >> s;
   
   Node *root;
